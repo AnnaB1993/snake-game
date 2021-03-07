@@ -2,17 +2,11 @@ const grid = $(".grid");
 let snakeBody = [{ x: 11, y: 11 }];
 let food = { x: 6, y: 7 };
 let inputDirection = { x: 1, y: 0 };
-const snakeGrowSize = 1;
+let snakeGrowSize = 1;
 let newParts = 0;
+let score = 0;
 
-
-function gameOverText(grid){
-  let gameOverText = document.createElement("div");
-  gameOverText.text(("Game over!!!"));
-  gameOverText.classList.add("gameOver");
-  grid.append(gameOverText);
-}
-
+document.getElementById("score").innerHTML = "Score: " + 0;
 
 function drawSnake(grid) {
   grid.html("");
@@ -30,6 +24,8 @@ function drawFood(grid) {
   foodEl.style.gridRowStart = food.y;
   foodEl.style.gridColumnStart = food.x;
   if (samePosition()) {
+    score += 1;
+    document.getElementById("score").innerHTML = "Score: " + score;
     food.x = Math.floor(Math.random() * 21);
     food.y = Math.floor(Math.random() * 21);
     growSnake();
@@ -38,12 +34,13 @@ function drawFood(grid) {
   grid.append(foodEl);
 }
 
-function updateSnake() {
+function updateSnake(grid) {
   for (let i = snakeBody.length - 2; i >= 0; i--) {
     snakeBody[i + 1] = { ...snakeBody[i] };
   }
   snakeBody[0].x += inputDirection.x;
   snakeBody[0].y += inputDirection.y;
+  grid.append(snakeBody);
 }
 function growSnake() {
   newParts += 1;
@@ -76,8 +73,13 @@ document.addEventListener("keydown", function (e) {
   console.log(inputDirection);
 });
 
-function wallCollision() {
-  return snakeBody[0].x < 0 || snakeBody[0].y < 0;
+function wallCollision(position) {
+  return (
+    snakeBody[0].x < 1 ||
+    snakeBody[0].x > 22 ||
+    snakeBody[0].y < 0 ||
+    snakeBody[0].y > 22
+  );
 }
 function snakeEatsItself() {
   let snakeHead = snakeBody[0];
@@ -88,29 +90,26 @@ function snakeEatsItself() {
   }
 }
 
+function gameOverText(grid) {
+  let gameOverText = document.createElement("div");
+  gameOverText.text("Game over!!!");
+  gameOverText.classList.add("gameOver");
+  grid.append(gameOverText);
+}
+
 function gameOver() {
-  if (wallCollision() || snakeEatsItself()) {
-    clearInterval(gameOn);
+  if (wallCollision(snakeHead) || snakeEatsItself()) {
+    stopGame();
     gameOverText();
   }
 }
+function stopGame() {
+  clearInterval(gameOn);
+  location.reload();
+}
+
 let gameOn = setInterval(() => {
-  updateSnake();
+  updateSnake(grid);
   drawSnake(grid);
   drawFood(grid);
 }, 200);
-
-// const board = []
-// for (let i = 0; i < 20; i++){
-//   const row = "e".repeat(20).split(""); /*or row = Array(20).fill("e")*/
-//   board.push(row)
-// }
-// const innerArray = board.map(boardEl => [...board].map(innerEl => `${boardEl}, ${innerEl}`))
-// console.log(board)
-
-// let snake = document.createElement('div')
-// // snake = board[10][9];
-
-// snake.classList.add('snake')
-// board.appendChild(snake)
-// console.log(snake)
