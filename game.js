@@ -5,6 +5,7 @@ let inputDirection = { x: 1, y: 0 };
 let snakeGrowSize = 1;
 let newParts = 0;
 let score = 0;
+let gameFinished = false;
 
 document.getElementById("score").innerHTML = "Score: " + 0;
 
@@ -75,7 +76,7 @@ document.addEventListener("keydown", function (e) {
 
 function wallCollision() {
   return (
-    snakeBody[0].x < 1 ||
+    snakeBody[0].x < 0 ||
     snakeBody[0].x > 21 ||
     snakeBody[0].y < 0 ||
     snakeBody[0].y > 21
@@ -90,33 +91,31 @@ function snakeEatsItself() {
   }
 }
 
-function gameOverText(grid) {
-  let gameOverText = document.createElement("<div>");
-  gameOverText.text("Game over!!!");
-  gameOverText.classList.add("gameOver");
-  grid.append(gameOverText);
-}
-
 function gameOver() {
-  if (wallCollision(snakeHead) || snakeEatsItself()) {
-    stopGame();
-    gameOverText();
+  if (wallCollision() || snakeEatsItself()) {
+    clearInterval(gameOn);
+    // stopGame();
+    // gameOverText();
+  } else{
+    updateSnake();
+    drawSnake()
   }
 }
-function stopGame() {
-  clearInterval(gameOn);
-  location.reload();
-}
-// let gameOn = setInterval(() => {
-//     updateSnake(grid);
-//     drawSnake(grid);
-//     drawFood(grid);
-//   }, 200);
+
 
   $(".start").click(function(){
     setInterval(() => {
       updateSnake(grid);
       drawSnake(grid);
       drawFood(grid);
+      gameOver();
     }, 200);
   })
+
+
+// function gameOverText(grid) {
+//   let gameOverText = document.createElement("<div>");
+//   gameOverText.text("Game over!!!");
+//   gameOverText.classList.add("gameOver");
+//   grid.append(gameOverText);
+// }
