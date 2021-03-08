@@ -73,12 +73,12 @@ document.addEventListener("keydown", function (e) {
   console.log(inputDirection);
 });
 
-function wallCollision(position) {
+function wallCollision() {
   return (
     snakeBody[0].x < 1 ||
-    snakeBody[0].x > 22 ||
+    snakeBody[0].x > 21 ||
     snakeBody[0].y < 0 ||
-    snakeBody[0].y > 22
+    snakeBody[0].y > 21
   );
 }
 function snakeEatsItself() {
@@ -91,7 +91,7 @@ function snakeEatsItself() {
 }
 
 function gameOverText(grid) {
-  let gameOverText = document.createElement("div");
+  let gameOverText = document.createElement("<div>");
   gameOverText.text("Game over!!!");
   gameOverText.classList.add("gameOver");
   grid.append(gameOverText);
@@ -107,9 +107,16 @@ function stopGame() {
   clearInterval(gameOn);
   location.reload();
 }
+// let gameOn = setInterval(() => {
+//     updateSnake(grid);
+//     drawSnake(grid);
+//     drawFood(grid);
+//   }, 200);
 
-let gameOn = setInterval(() => {
-  updateSnake(grid);
-  drawSnake(grid);
-  drawFood(grid);
-}, 200);
+  $(".start").click(function(){
+    setInterval(() => {
+      updateSnake(grid);
+      drawSnake(grid);
+      drawFood(grid);
+    }, 200);
+  })

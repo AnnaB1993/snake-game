@@ -4,22 +4,23 @@
   margin: 0;
   padding: 0;
 }
-body{
+body {
   height: 100%;
   margin-bottom: none;
+  background-color: rgb(173, 241, 173);
   background-attachment: fixed;
   background-position: 290px 200px;
   background-image: url(https://cdn.pixabay.com/photo/2016/03/31/15/10/cartoon-1293047_960_720.png);
   background-size: 60%;
   background-repeat: no-repeat;
 }
-main{
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.top{
+.top {
   display: flex;
   justify-content: center;
   padding: 5px;
@@ -33,10 +34,23 @@ main{
   width: 650px;
   height: 650px;
   display: grid;
-  grid-template-columns: repeat(21, 1fr);
-  grid-template-rows: repeat(21, 1fr);
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
   background-color: grey;
   border: yellow solid 5px;
+}
+.start {
+  display: inline-block;
+  position: fixed;
+  width: 250px;
+  height: 150px;
+  right: 10%;
+  top: 30%;
+  font-size: 50px;
+  background-color: crimson;
+  color: bisque;
+  border: rgb(135, 247, 241) solid 4px;
+  border-radius: 2px;
 }
 .score {
   display: flex;
@@ -59,4 +73,21 @@ main{
   font-size: 30px;
   color: red;
   text-align: center;
+}
+@media (max-width: 900px) {
+  body {
+    background-color: rgb(54, 238, 94);
+    background-attachment: fixed;
+    background-repeat: repeat;
+    background-image: url(https://cdn.pixabay.com/photo/2016/03/31/15/10/cartoon-1293047_960_720.png);
+  }
+  .start {
+    display: inline-block;
+    position: fixed;
+    top: 90%;
+    left: 45%;
+    width: 100px;
+    height: 50px;
+    font-size: 30px;
+  }
 }
