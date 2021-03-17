@@ -52,6 +52,20 @@ main {
   border: rgb(135, 247, 241) solid 4px;
   border-radius: 2px;
 }
+.speed{
+  display: inline-block;
+  position: fixed;
+  width: 150px;
+  height: 100px;
+  right: 12%;
+  top: 60%;
+  font-size: 20px;
+  background-color: rgb(19, 55, 218);
+  color: bisque;
+  border: rgb(135, 247, 241) solid 3px;
+  border-radius: 2px;
+
+}
 .score {
   display: flex;
   background: -webkit-linear-gradient(rgb(209, 41, 167), rgb(91, 60, 206));
